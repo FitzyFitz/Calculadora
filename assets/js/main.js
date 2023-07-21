@@ -1,30 +1,30 @@
-function criaCalculadora() {
-    return {
-        display: document.querySelector('.display'),
+function Calculadora() {
 
-        inicia() {
+        const display = document.querySelector('.display');
+
+        this.inicia = function() {
             this.cliqueBotoes();
             this.pressionaEnter();
-        },
+        };
 
-        pressionaEnter(){
-            this.display.addEventListener('keyup', e => {
+        this.pressionaEnter = function(){
+            display.addEventListener('keyup', e => {
                 if(e.keyCode === 13){
                     this.realizaConta();
                 }
             });
-        },
+        };
 
-        clearDisplay(){
-            this.display.value = '';
-        },
+        this.clearDisplay = function(){
+            display.value = '';
+        };
 
-        apagaUm(){
-            this.display.value = this.display.value.slice(0, -1);
-        },
+        this.apagaUm = function(){
+            display.value = display.value.slice(0, -1);
+        };
 
-        realizaConta(){
-            let conta = this.display.value;
+        this.realizaConta = function(){
+            let conta = display.value;
 
             try{
                 conta = eval(conta);
@@ -34,14 +34,14 @@ function criaCalculadora() {
                     return;
                 }
 
-                this.display.value = String(conta);
+                display.value = String(conta);
             } catch(e){
                 alert('Conta inválida');
                 return;
             }
-        },
+        };
 
-        cliqueBotoes(){
+        this.cliqueBotoes = function(){
             document.addEventListener('click', e => {
                 const el = e.target;
 
@@ -61,13 +61,12 @@ function criaCalculadora() {
                     this.realizaConta();
                 }
             });
-        },
+        };
 
-        btnParaDisplay(valor){
-            this.display.value += valor;
-        }
-    };
+        this.btnParaDisplay = function(valor){
+            display.value += valor;
+        };
 }
 
-const calculadora = criaCalculadora();
+const calculadora = new Calculadora();
 calculadora.inicia();
